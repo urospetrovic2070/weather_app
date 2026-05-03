@@ -44,7 +44,7 @@ export const GET: RequestHandler = async ({ url, cookies, fetch }) => {
 	data.current.visibility = visibility;
 	data.ready = true;
 
-	await redis.set(queryKey, JSON.stringify(data), 'EX', 3600);
+	await redis.set(queryKey, JSON.stringify(data), { ex: 3600 });
 
 	return json(data);
 };
