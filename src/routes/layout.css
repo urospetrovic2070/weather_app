@@ -1,1 +1,18 @@
 @import 'tailwindcss';
+
+@utility no-scrollbar {
+	@apply [scrollbar-width:none] [&::-webkit-scrollbar]:hidden;
+}
+
+@utility no-interaction {
+	& * {
+		pointer-events: none;
+	}
+}
+
+@utility no-select {
+	user-select: none;
+	-webkit-user-select: none;
+	-ms-user-select: none;
+	-webkit-tap-highlight-color: transparent;
+}
