@@ -26,7 +26,7 @@
 			return;
 		}
 		try {
-			const data = await getLocation(query);
+			const data = await getLocation(query).run();
 			location = data || [];
 		} catch (err) {
 			console.error('Search Error:', err);
