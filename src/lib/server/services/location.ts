@@ -3,12 +3,9 @@ import { error as kitError } from '@sveltejs/kit';
 import { supabase } from '$lib/supabaseClient';
 
 export async function searchLocation(search: string) {
-	const { data, error } = await supabase
-		.from('locations')
-		.select('name, country, latitude, longitude, location_aliases!inner(alias)')
-		.ilike('location_aliases.alias', `%${search}%`)
-		.limit(5)
-		.order('population', { ascending: false });
+	const { data, error } = await supabase.rpc('search_locations', {
+		search_term: search
+	});
 	if (error) {
 		throw kitError(500, `Error:${error.message}`);
 	}
