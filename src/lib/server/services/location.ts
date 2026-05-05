@@ -5,8 +5,8 @@ import { supabase } from '$lib/supabaseClient';
 export async function searchLocation(search: string) {
 	const { data, error } = await supabase
 		.from('locations')
-		.select('name,country,latitude,longitude')
-		.ilike('search', `%${search}%`)
+		.select('name, country, latitude, longitude, location_aliases!inner(alias)')
+		.ilike('location_aliases.alias', `%${search}%`)
 		.limit(5)
 		.order('population', { ascending: false });
 	if (error) {
