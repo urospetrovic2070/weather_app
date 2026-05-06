@@ -8,6 +8,7 @@
 	let location: Location[] = $state([]);
 	let locationVisible: boolean = $state(false);
 	let search: string = $state('');
+	let spinnerVisible: boolean = $state(false);
 
 	let searchContainer: HTMLDivElement;
 	let timeout: ReturnType<typeof setTimeout>;
@@ -21,13 +22,15 @@
 	});
 
 	async function searchLocation(query: string) {
-		if (query.length < 2) {
+		if (query.length < 3) {
 			location = [];
 			return;
 		}
 		try {
+			spinnerVisible = true;
 			const data = await getLocation(query).run();
 			location = data || [];
+			spinnerVisible = false;
 		} catch (err) {
 			console.error('Search Error:', err);
 			location = [];
@@ -38,7 +41,7 @@
 		clearTimeout(timeout);
 		timeout = setTimeout(() => {
 			searchLocation(search);
-		}, 300);
+		}, 400);
 	};
 
 	$effect(() => {
@@ -74,6 +77,11 @@
 		oninput={handleSearch}
 		placeholder="Enter a settlement (e.g. Limoges)"
 	/>
+	{#if spinnerVisible}
+		<span
+			class="loader pointer-events-none absolute top-3 right-3 box-border inline-block h-6.25 w-6.25 rounded-full border-[3px] border-white border-b-transparent"
+		></span>
+	{/if}
 	{#if locationVisible}
 		<SearchList {location} />
 	{/if}

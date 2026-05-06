@@ -16,3 +16,16 @@
 	-ms-user-select: none;
 	-webkit-tap-highlight-color: transparent;
 }
+
+.loader {
+	animation: rotation 1s linear infinite;
+}
+
+@keyframes rotation {
+	0% {
+		transform: rotate(0deg);
+	}
+	100% {
+		transform: rotate(360deg);
+	}
+}
