@@ -1,4 +1,6 @@
 <script lang="ts">
+	import { page } from '$app/state';
+
 	import SearchIcon from '$lib/icons/SearchIcon.svelte';
 	import { globalState } from '$lib/state/global.svelte';
 	import { weatherState } from '$lib/state/weather.svelte';
@@ -10,8 +12,8 @@
 
 <header class="bg-black/30 py-5 backdrop-blur-xl">
 	<div class="mx-auto flex max-w-6xl items-center px-3 lg:px-0">
-		<h1 class="flex-1 text-3xl">Tropocast</h1>
-		{#if width < 1024}
+		<h1 class="flex-1 text-3xl"><a href="/">Tropocast</a></h1>
+		{#if width < 1024 && page.status !== 404}
 			<button
 				onclick={() => {
 					globalState.global.modal.open = true;
@@ -21,7 +23,7 @@
 			>
 				<SearchIcon />
 			</button>
-		{:else}
+		{:else if page.status !== 404}
 			<input
 				class="w-75 rounded-sm bg-black/30 p-3 backdrop-blur-xl focus:outline-none lg:w-100"
 				onfocus={() => {
