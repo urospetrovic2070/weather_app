@@ -41,7 +41,6 @@
 		"@supabase/supabase-js": "^2.90.0",
 		"@upstash/redis": "^1.37.0",
 		"d3": "^7.9.0",
-		"ioredis": "^5.10.0",
 		"zod": "^4.3.6"
 	}
 }
